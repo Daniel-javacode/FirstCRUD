@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
 
 <head>
     <meta charset="UTF-8"/>
@@ -21,14 +21,15 @@
         <th>EMAIL</th>
     </tr>
 
-        <tr th:each="user : ${userList}">
+    <tr th:each="user : ${usersList}">
 
-            <td th:utext="${user.getId()}">ID</td>
-            <td th:utext="${user.getName()}">NAME</td>
-            <td th:utext="${user.getSurname()}">SURNAME</td>
-            <td th:utext="${user.getEmail()}">EMAIL</td>
+        <td th:utext="${user.getId()}">ID</td>
+        <td th:utext="${user.getName()}">NAME</td>
+        <td th:utext="${user.getSurname()}">SURNAME</td>
+        <td th:utext="${user.getEmail()}">EMAIL</td>
 
-        </tr>
+    </tr>
+
 </table>
 
 </body>

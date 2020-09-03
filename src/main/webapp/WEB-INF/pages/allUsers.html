@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>MVC</title>
+    <style>
+        table th, table td {
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<table border=1>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>SURNAME</th>
+        <th>EMAIL</th>
+    </tr>
+
+        <tr th:each="user : ${userList}">
+
+            <td th:utext="${user.getId()}">ID</td>
+            <td th:utext="${user.getName()}">NAME</td>
+            <td th:utext="${user.getSurname()}">SURNAME</td>
+            <td th:utext="${user.getEmail()}">EMAIL</td>
+
+        </tr>
+</table>
+
+</body>
+</html>

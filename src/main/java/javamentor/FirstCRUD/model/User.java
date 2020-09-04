@@ -1,9 +1,23 @@
 package javamentor.FirstCRUD.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "surname")
     private String surname;
+
+    @Column(name = "email")
     private String email;
 
     public int getId() {
@@ -37,8 +51,9 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return id + " " + name + " " + surname + " " + email;
     }
 }

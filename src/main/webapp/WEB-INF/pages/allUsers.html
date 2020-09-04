@@ -19,6 +19,7 @@
         <th>NAME</th>
         <th>SURNAME</th>
         <th>EMAIL</th>
+        <th>ACTIONS</th>
     </tr>
 
     <tr th:each="user : ${usersList}">
@@ -27,6 +28,7 @@
         <td th:utext="${user.getName()}">NAME</td>
         <td th:utext="${user.getSurname()}">SURNAME</td>
         <td th:utext="${user.getEmail()}">EMAIL</td>
+        <td href="/edit/${user.getId()}">UPDATE</td>
 
     </tr>
 

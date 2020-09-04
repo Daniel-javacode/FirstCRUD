@@ -1,13 +1,9 @@
 package javamentor.FirstCRUD.dao;
 
 import javamentor.FirstCRUD.model.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,18 +14,25 @@ public class UserDAOImpl implements UserDAO {
     private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
     private static Map<Integer, User> users = new HashMap<>();
 
-    private EntityManagerFactory entityManagerFactory;
+    static {
+        User user1 = new User();
+        user1.setId(AUTO_ID.getAndIncrement());
+        user1.setName("Вася");
+        user1.setSurname("Пупкин");
+        user1.setEmail("pupok@gamil.com");
+        users.put(user1.getId(), user1);
 
-    @Autowired
-    public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
-        this.entityManagerFactory = entityManagerFactory;
+        User user2 = new User();
+        user2.setId(AUTO_ID.getAndIncrement());
+        user2.setName("Витя");
+        user2.setSurname("Попкин");
+        user2.setEmail("popok@gmail.com");
+        users.put(user2.getId(), user2);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<User> allUsers() {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.createQuery("from User").getResultList();
+        return new ArrayList<>(users.values());
     }
 
     @Override

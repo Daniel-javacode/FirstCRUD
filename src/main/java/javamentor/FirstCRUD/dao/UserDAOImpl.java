@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
@@ -14,7 +15,6 @@ public class UserDAOImpl implements UserDAO {
     EntityManager entityManager;
 
     @Autowired
-    @Qualifier("entityManagerFactory")
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

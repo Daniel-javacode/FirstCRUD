@@ -27,6 +27,7 @@ import java.util.Properties;
 @EnableJpaRepositories("javamentor.FirstCRUD")
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
+
     private Environment environment;
 
     @Autowired
@@ -53,35 +54,6 @@ public class HibernateConfig {
         return dataSource;
     }
 
-    /*@Bean
-    public EntityManagerFactory entityManagerFactory(DataSource dataSource, Properties hibernateProperties) {
-        final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
-        em.setPackagesToScan("javamentor.FirstCRUD");
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        em.setJpaProperties(hibernateProperties);
-        em.setPersistenceUnitName("mytestdomain");
-        em.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        em.afterPropertiesSet();
-        return em.getObject();
-    }*/
-
-    /*@Bean
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("testgroup.filmography.model");
-        sessionFactory.setHibernateProperties(hibernateProperties());
-        return sessionFactory;
-    }*/
-
-    /*@Bean
-    public HibernateTransactionManager transactionManager() {
-        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory().getObject());
-        return transactionManager;
-    }*/
-
     //JPA-cfg-begin
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
@@ -96,18 +68,29 @@ public class HibernateConfig {
 
     @Bean
     public JpaVendorAdapter getJpaVendorAdapter() {
-        JpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        return jpaVendorAdapter;
+        return new HibernateJpaVendorAdapter();
     }
 
     @Bean(name = "transactionManager")
     public PlatformTransactionManager txManager() {
-        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager(
+        return new JpaTransactionManager(
                 getEntityManagerFactoryBean()
                         .getObject()
         );
-        return jpaTransactionManager;
     }
     //JPA-cfg-end
+
+    /*@Bean
+    public EntityManagerFactory entityManagerFactory(DataSource dataSource, Properties hibernateProperties) {
+        final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource);
+        em.setPackagesToScan("javamentor.FirstCRUD");
+        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(hibernateProperties);
+        em.setPersistenceUnitName("mytestdomain");
+        em.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+        em.afterPropertiesSet();
+        return em.getObject();
+    }*/
 
 }

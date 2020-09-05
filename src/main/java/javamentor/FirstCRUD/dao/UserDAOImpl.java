@@ -1,59 +1,54 @@
 package javamentor.FirstCRUD.dao;
 
 import javamentor.FirstCRUD.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
-    private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
-    private static Map<Integer, User> users = new HashMap<>();
 
-    static {
-        User user1 = new User();
-        user1.setId(AUTO_ID.getAndIncrement());
-        user1.setName("Вася");
-        user1.setSurname("Пупкин");
-        user1.setEmail("pupok@gamil.com");
-        users.put(user1.getId(), user1);
+    EntityManager entityManager;
 
-        User user2 = new User();
-        user2.setId(AUTO_ID.getAndIncrement());
-        user2.setName("Витя");
-        user2.setSurname("Попкин");
-        user2.setEmail("popok@gmail.com");
-        users.put(user2.getId(), user2);
+    @Autowired
+    @Qualifier("entityManagerFactory")
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<User> allUsers() {
-        return new ArrayList<>(users.values());
+        return entityManager.createQuery("from User").getResultList();
     }
 
     @Override
     public void create(User user) {
-        user.setId(AUTO_ID.getAndIncrement());
-        users.put(user.getId(), user);
+        entityManager.getTransaction().begin();
+        entityManager.remove(user);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public User readById(int id) {
-        return users.get(id);
+        return entityManager.find(User.class, id);
     }
 
     @Override
     public void update(User user) {
-        users.put(user.getId(), user);
+        entityManager.getTransaction().begin();
+        entityManager.merge(user);
+        entityManager.getTransaction().commit();
     }
 
 
     @Override
     public void delete(User user) {
-        users.remove(user.getId());
+        entityManager.getTransaction().begin();
+        entityManager.remove(user);
+        entityManager.getTransaction().commit();
     }
 }

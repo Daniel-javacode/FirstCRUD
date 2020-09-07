@@ -19,9 +19,9 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = "javamentor.FirstCRUD")
+@ComponentScan(basePackages = "java")
 @EnableTransactionManagement
-@EnableJpaRepositories("javamentor.FirstCRUD")
+@EnableJpaRepositories("java")
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
 

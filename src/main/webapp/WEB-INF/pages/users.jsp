@@ -1,10 +1,12 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>USERS</title>
 </head>
 <body>
 
-<h2>Users</h2>
+<h2>users</h2>
 <table>
     <tr>
         <th>id</th>
@@ -13,7 +15,7 @@
         <th>email</th>
         <th>action</th>
     </tr>
-    <c:forEach var="user" items="${usersList}">
+    <c:forEach var="user" items="${userList}">
         <tr>
             <td>${user.id}</td>
             <td>${user.name}</td>

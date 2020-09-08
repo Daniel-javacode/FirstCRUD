@@ -20,31 +20,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public List<User> allUsers() {
         return userDAO.allUsers();
     }
 
     @Override
-    @Transactional
     public void create(User user) {
         userDAO.create(user);
     }
 
     @Override
-    @Transactional
     public User readById(int id) {
         return userDAO.readById(id);
     }
 
     @Override
-    @Transactional
     public void update(User user) {
         userDAO.update(user);
     }
 
     @Override
-    @Transactional
     public void delete(User user) {
         userDAO.delete(user);
     }

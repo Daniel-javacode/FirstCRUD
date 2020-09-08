@@ -8,6 +8,11 @@ import javax.servlet.Filter;
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{JpaConfig.class};
+    }
+
+    @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class[]{WebConfig.class};
     }
@@ -23,10 +28,5 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
         return new Filter[]{characterEncodingFilter};
-    }
-
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{HibernateConfig.class};
     }
 }

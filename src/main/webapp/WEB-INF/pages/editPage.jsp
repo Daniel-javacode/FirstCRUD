@@ -1,38 +1,37 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <c:choose>
-        <c:when test="${empty user.id}">
-            <title>Add</title>
-        </c:when>
-        <c:otherwise>
-            <title>Edit</title>
-        </c:otherwise>
-    </c:choose>
+    <c:if test="${empty user.name}">
+        <title>Add</title>
+    </c:if>
+    <c:if test="${!empty user.name}">
+        <title>Edit</title>
+    </c:if>
 </head>
 <body>
-<c:url value="/add" var="addUrl"/>
-<c:url value="/edit" var="editUrl"/>
-<form action="${empty user.id ? addUrl : editUrl}" name="user" method="POST">
-    <c:choose>
-        <c:when test="${!empty user.id}">
-            <p>Edit user</p>
-            <input type="hidden" name="id" value="${user.id}">
-        </c:when>
-        <c:otherwise>
-            <p>Add new user</p>
-        </c:otherwise>
-    </c:choose>
-    <p><input type="text" name="name" placeholder="name" value="${user.name}" maxlength="100" required>
-    <p><input type="number" name="surname" placeholder="surname" value="${user.surname}" required>
-    <p><input type="text" name="email" placeholder="email" value="${user.email}" maxlength="20" required>
-    <p>
-        <c:set value="add" var="add"/>
-        <c:set value="edit" var="edit"/>
-        <input type="submit" value="${empty user.id ? add : edit}">
-    </p>
-    <p>${message}</p>
+<c:if test="${empty user.name}">
+    <c:url value="/add" var="var"/>
+</c:if>
+<c:if test="${!empty user.name}">
+    <c:url value="/edit" var="var"/>
+</c:if>
+<form action="${var}" method="POST">
+    <c:if test="${!empty user.name}">
+        <input type="hidden" name="id" value="${user.id}">
+    </c:if>
+    <label for="name">First Name</label>
+    <input type="text" name="name" id="name">
+    <label for="surname">Last Name</label>
+    <input type="text" name="surname" id="surname">
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email">
+    <c:if test="${empty user.name}">
+        <input type="submit" value="Add new user">
+    </c:if>
+    <c:if test="${!empty user.name}">
+        <input type="submit" value="Edit user">
+    </c:if>
 </form>
 </body>
 </html>
